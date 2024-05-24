@@ -1,0 +1,15 @@
+### GET request to example server
+GET http://localhost:8080/category
+Accept: application/json
+
+###
+
+### GET request to example server
+POST http://localhost:8080/category
+Content-Type: application/json
+
+ {
+   "name": "Product Owner"
+ }
+
+###

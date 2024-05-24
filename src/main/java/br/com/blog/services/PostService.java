@@ -17,12 +17,12 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public Post salvar(PostDTO dto) {
+    public Post save(PostDTO dto) {
         Post post = new Post(dto);
         return  postRepository.save(post);
     }
 
-    public List<Post> listarPosts() {
+    public List<Post> listPosts() {
         return postRepository.findAll();
     }
 
@@ -30,12 +30,12 @@ public class PostService {
         return postRepository.findById(id);
     }
 
-    public Post atualizar(String id, PostDTO dto) {
+    public Post update(String id, PostDTO dto) {
         Post post = new Post(id, dto);
         return postRepository.save(post);
     }
 
-    public void deletar(String id) {
+    public void delete(String id) {
          postRepository.deleteById(id);
     }
 }

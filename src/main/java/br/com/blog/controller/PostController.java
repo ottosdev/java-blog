@@ -21,13 +21,13 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> save(@RequestBody PostDTO dto) {
-        Post post = postService.salvar(dto);
+        Post post = postService.save(dto);
         return ResponseEntity.ok(post);
     }
 
     @GetMapping
     public ResponseEntity<List<Post>> listPosts() {
-        return ResponseEntity.ok(postService.listarPosts());
+        return ResponseEntity.ok(postService.listPosts());
     }
 
     @PutMapping("{id}")
@@ -38,7 +38,7 @@ public class PostController {
             return ResponseEntity.notFound().build();
         }
 
-        Post post = postService.atualizar( id, dto);
+        Post post = postService.update( id, dto);
         return ResponseEntity.ok(post);
     }
 
@@ -49,7 +49,7 @@ public class PostController {
         if(getPost.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-        postService.deletar(id);
+        postService.delete(id);
         return ResponseEntity.ok().build();
     }
 }
