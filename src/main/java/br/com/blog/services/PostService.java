@@ -3,8 +3,8 @@ package br.com.blog.services;
 import br.com.blog.dto.PostDTO;
 import br.com.blog.model.Post;
 import br.com.blog.repository.PostRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +17,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
+    @Transactional
     public Post save(PostDTO dto) {
         Post post = new Post(dto);
         return  postRepository.save(post);
@@ -30,12 +31,21 @@ public class PostService {
         return postRepository.findById(id);
     }
 
+    @Transactional
     public Post update(String id, PostDTO dto) {
+        Optional<Post> existingPost = postRepository.findById(id);
+        if (existingPost.isEmpty()) {
+            throw new RuntimeException("Post not found with id: " + id);
+        }
         Post post = new Post(id, dto);
         return postRepository.save(post);
     }
 
+    @Transactional
     public void delete(String id) {
-         postRepository.deleteById(id);
+        if (!postRepository.existsById(id)) {
+            throw new RuntimeException("Post not found with id: " + id);
+        }
+        postRepository.deleteById(id);
     }
 }

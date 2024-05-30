@@ -3,6 +3,7 @@ package br.com.blog.services;
 import br.com.blog.model.Category;
 import br.com.blog.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class CategoryServices {
         return categoryRepository.findAll();
     }
 
+    @Transactional
     public Category save(Category category) {
         return categoryRepository.save(category);
     }

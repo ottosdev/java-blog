@@ -2,7 +2,9 @@ package br.com.blog.controller;
 
 import br.com.blog.model.Category;
 import br.com.blog.services.CategoryServices;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+    public ResponseEntity<Category> createCategory(@RequestBody @Valid Category category) {
         return ResponseEntity.ok(categoryServices.save(category));
     }
 
