@@ -4,12 +4,18 @@ Accept: application/json
 
 ###
 
+### GET id
+GET http://localhost:8080/post/b80c1214-62d7-4d50-a7ed-969cfefd6a02
+Accept: application/json
+
+###
+
 ### POST
 POST http://localhost:8080/post
 Content-Type: application/json
 
 {
-  "title": "React 20",
+  "title": "",
   "content": "We talk about the new version React 19. There are many things that change this lib.",
   "author": "JOHN DOE",
   "category": "Development"
@@ -17,7 +23,7 @@ Content-Type: application/json
 
 ###
 
-### PUT
+### PUT`
 PUT http://localhost:8080/post/f4829497-d9de-433d-adb5-b9df55c31f23
 Content-Type: application/json
 

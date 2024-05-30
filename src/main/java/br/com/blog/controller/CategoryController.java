@@ -24,4 +24,5 @@ public class CategoryController {
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
         return ResponseEntity.ok(categoryServices.save(category));
     }
+
 }

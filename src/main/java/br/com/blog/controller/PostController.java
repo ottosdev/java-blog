@@ -1,8 +1,11 @@
 package br.com.blog.controller;
 
 import br.com.blog.dto.PostDTO;
+import br.com.blog.exceptions.CustomException;
 import br.com.blog.model.Post;
 import br.com.blog.services.PostService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +23,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> save(@RequestBody PostDTO dto) {
+    public ResponseEntity<Post> save(@RequestBody @Valid PostDTO dto) {
         Post post = postService.save(dto);
         return ResponseEntity.ok(post);
     }
@@ -30,12 +33,21 @@ public class PostController {
         return ResponseEntity.ok(postService.listPosts());
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Post> getPost(@PathVariable String id) {
+        Optional<Post> getPost = postService.findById(id);
+        if (getPost.isEmpty()) {
+            throw new CustomException("Resource not found: " + id, HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND");
+        }
+        return ResponseEntity.ok(getPost.get());
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<Post> update(@PathVariable String id, @RequestBody PostDTO dto) {
         Optional<Post> getPost = postService.findById(id);
 
         if(getPost.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new CustomException("Resource not found: " + id, HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND");
         }
 
         Post post = postService.update( id, dto);
@@ -47,7 +59,7 @@ public class PostController {
         Optional<Post> getPost = postService.findById(id);
 
         if(getPost.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            throw new CustomException("Resource not found: " + id, HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND");
         }
         postService.delete(id);
         return ResponseEntity.ok().build();
