@@ -15,7 +15,7 @@ POST http://localhost:8080/post
 Content-Type: application/json
 
 {
-  "title": "",
+  "title": "React",
   "content": "We talk about the new version React 19. There are many things that change this lib.",
   "author": "JOHN DOE",
   "category": "Development"
@@ -37,7 +37,7 @@ Content-Type: application/json
 ###
 
 ### DELETE
-DELETE http://localhost:8080/post/8cc1ee25-9c52-4f8a-9b1c-5802f6a46e03
+DELETE http://localhost:8080/post/f80fe840-6366-468f-bc3c-244f1a3380c2
 Content-Type: application/json
 
 

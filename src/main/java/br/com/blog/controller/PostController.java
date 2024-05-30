@@ -25,7 +25,7 @@ public class PostController {
     @PostMapping
     public ResponseEntity<Post> save(@RequestBody @Valid PostDTO dto) {
         Post post = postService.save(dto);
-        return ResponseEntity.ok(post);
+        return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
 
     @GetMapping
