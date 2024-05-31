@@ -1,6 +1,6 @@
 package br.com.blog.model;
 
-import br.com.blog.dto.PostDTO;
+import br.com.blog.dto.post.PostDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,15 +18,22 @@ public class Post {
     private String id;
 
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Column
     private String author;
-    private String category;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Post(PostDTO dto) {
         this.title = dto.title();
         this.content = dto.content();
         this.author = dto.author();
-        this.category = dto.category();
+
     }
 
     public Post(String id, PostDTO dto) {
@@ -34,6 +41,5 @@ public class Post {
         this.title = dto.title();
         this.content = dto.content();
         this.author = dto.author();
-        this.category = dto.category();
     }
 }

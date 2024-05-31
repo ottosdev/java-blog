@@ -18,26 +18,26 @@ Content-Type: application/json
   "title": "React",
   "content": "We talk about the new version React 19. There are many things that change this lib.",
   "author": "JOHN DOE",
-  "category": "Development"
+  "categoryName": "development"
 }
 
 ###
 
 ### PUT`
-PUT http://localhost:8080/post/f4829497-d9de-433d-adb5-b9df55c31f23
+PUT http://localhost:8080/post/2a8dfc77-1957-45d0-9c80-a67bd36c977c
 Content-Type: application/json
 
 {
-  "title": "React 30",
+  "title": "React 29",
   "content": "We talk about the new version React 19. There are many things that change this lib.",
   "author": "OTTO DE SOUZA",
-  "category": "DEVELOPMENT"
+  "categoryName": "development"
 }
 
 ###
 
 ### DELETE
-DELETE http://localhost:8080/post/f80fe840-6366-468f-bc3c-244f1a3380c2
+DELETE http://localhost:8080/post/9e01c9b1-7d86-4945-88d1-444502b4d23c
 Content-Type: application/json
 
 

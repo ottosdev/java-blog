@@ -1,10 +1,12 @@
 package br.com.blog.model;
 
+import br.com.blog.dto.category.CategoryDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_category")
@@ -17,6 +19,13 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @NotBlank(message = "It is required")
+    @Column(unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
+
+    public Category(CategoryDTO dto) {
+        this.name = dto.name();
+    }
 }
