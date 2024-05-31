@@ -1,6 +1,6 @@
 package br.com.blog.services;
 
-import br.com.blog.dto.category.CategoryDTO;
+import br.com.blog.dto.category.CategoryRequestDTO;
 import br.com.blog.dto.category.CategoryResponseDTO;
 import br.com.blog.exceptions.CustomException;
 import br.com.blog.model.Category;
@@ -31,7 +31,7 @@ public class CategoryServices {
     }
 
     @Transactional
-    public Category save(CategoryDTO dto) {
+    public Category save(CategoryRequestDTO dto) {
         Optional<Category> categoryOptional = categoryRepository.findByName(dto.name());
         if (categoryOptional.isPresent()) {
             throw new CustomException("Category name already exists!", HttpStatus.CONFLICT, "409");

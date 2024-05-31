@@ -1,8 +1,7 @@
 package br.com.blog.controller;
 
-import br.com.blog.dto.post.PostDTO;
+import br.com.blog.dto.post.PostRequestDTO;
 import br.com.blog.dto.post.PostResponseDTO;
-import br.com.blog.model.Post;
 import br.com.blog.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostResponseDTO> save(@RequestBody @Valid PostDTO dto) {
+    public ResponseEntity<PostResponseDTO> save(@RequestBody @Valid PostRequestDTO dto) {
         PostResponseDTO post = postService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
@@ -41,7 +40,7 @@ public class PostController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<PostResponseDTO> update(@PathVariable String id, @RequestBody PostDTO dto) {
+    public ResponseEntity<PostResponseDTO> update(@PathVariable String id, @RequestBody PostRequestDTO dto) {
         PostResponseDTO post = postService.update(id, dto);
         return ResponseEntity.ok(post);
     }

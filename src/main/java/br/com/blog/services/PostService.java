@@ -1,7 +1,6 @@
 package br.com.blog.services;
 
-import br.com.blog.dto.category.CategoryDTO;
-import br.com.blog.dto.post.PostDTO;
+import br.com.blog.dto.post.PostRequestDTO;
 import br.com.blog.dto.post.PostResponseDTO;
 import br.com.blog.exceptions.CustomException;
 import br.com.blog.model.Category;
@@ -28,7 +27,7 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponseDTO save(PostDTO dto) {
+    public PostResponseDTO save(PostRequestDTO dto) {
         Category category = categoryRepository.findByName(dto.categoryName())
                 .orElseGet(() -> {
                     Category newCategory = new Category();
@@ -61,7 +60,7 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponseDTO update(String id, PostDTO dto) {
+    public PostResponseDTO update(String id, PostRequestDTO dto) {
         Optional<Post> existingPostOptional = postRepository.findById(id);
         if (existingPostOptional.isEmpty()) {
             throw new CustomException("Resource not found: " + id, HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND");

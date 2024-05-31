@@ -1,6 +1,6 @@
 package br.com.blog.controller;
 
-import br.com.blog.dto.category.CategoryDTO;
+import br.com.blog.dto.category.CategoryRequestDTO;
 import br.com.blog.dto.category.CategoryResponseDTO;
 import br.com.blog.model.Category;
 import br.com.blog.services.CategoryServices;
@@ -26,7 +26,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryResponseDTO> createCategory(@RequestBody @Valid CategoryDTO dto) {
+    public ResponseEntity<CategoryResponseDTO> createCategory(@RequestBody @Valid CategoryRequestDTO dto) {
             Category category = categoryService.save(dto);
             CategoryResponseDTO categoryDTO = new CategoryResponseDTO(category.getId(), category.getName());
             return ResponseEntity.status(HttpStatus.CREATED).body(categoryDTO);

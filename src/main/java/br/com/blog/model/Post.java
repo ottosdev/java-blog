@@ -1,6 +1,6 @@
 package br.com.blog.model;
 
-import br.com.blog.dto.post.PostDTO;
+import br.com.blog.dto.post.PostRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,14 +29,14 @@ public class Post {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Post(PostDTO dto) {
+    public Post(PostRequestDTO dto) {
         this.title = dto.title();
         this.content = dto.content();
         this.author = dto.author();
 
     }
 
-    public Post(String id, PostDTO dto) {
+    public Post(String id, PostRequestDTO dto) {
         this.id = id;
         this.title = dto.title();
         this.content = dto.content();

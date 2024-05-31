@@ -1,6 +1,6 @@
 package br.com.blog.model;
 
-import br.com.blog.dto.category.CategoryDTO;
+import br.com.blog.dto.category.CategoryRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +25,7 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
 
-    public Category(CategoryDTO dto) {
+    public Category(CategoryRequestDTO dto) {
         this.name = dto.name();
     }
 }
