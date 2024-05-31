@@ -28,7 +28,7 @@ public class PostService {
     }
 
     @Transactional
-    public Post save(PostDTO dto) {
+    public PostResponseDTO save(PostDTO dto) {
         Category category = categoryRepository.findByName(dto.categoryName())
                 .orElseGet(() -> {
                     Category newCategory = new Category();
@@ -38,32 +38,30 @@ public class PostService {
 
         Post post = new Post(dto);
         post.setCategory(category);
-
-        return postRepository.save(post);
+        Post postsaved = postRepository.save(post);
+        return getPostResponseDTO(postsaved);
     }
+
+
 
     public List<PostResponseDTO> listPosts() {
         return postRepository.findAll().stream()
-                .map(post -> new PostResponseDTO(
-                        post.getId(),
-                        post.getTitle(),
-                        post.getContent(),
-                        post.getAuthor(),
-                        post.getCategory().getName()
-                ))
+                .map(PostService::getPostResponseDTO)
                 .collect(Collectors.toList());
     }
 
-    public Optional<Post> findById(String id) {
+    public Optional<PostResponseDTO> findById(String id) {
         Optional<Post> post = postRepository.findById(id);
-            if (post.isEmpty()) {
-                throw new CustomException("Resource not found: " + id, HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND");
-            }
-        return postRepository.findById(id);
+        if (post.isEmpty()) {
+            throw new CustomException("Resource not found: " + id, HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND");
+        }
+        Post foundPost = post.get();
+        PostResponseDTO dto = getPostResponseDTO(foundPost);
+        return Optional.of(dto);
     }
 
     @Transactional
-    public Post update(String id, PostDTO dto) {
+    public PostResponseDTO update(String id, PostDTO dto) {
         Optional<Post> existingPostOptional = postRepository.findById(id);
         if (existingPostOptional.isEmpty()) {
             throw new CustomException("Resource not found: " + id, HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND");
@@ -81,7 +79,8 @@ public class PostService {
         existingPost.setAuthor(dto.author());
         existingPost.setCategory(category.get());
 
-        return postRepository.save(existingPost);
+        Post post = postRepository.save(existingPost);
+        return getPostResponseDTO(post);
     }
 
     @Transactional
@@ -90,5 +89,15 @@ public class PostService {
             throw new RuntimeException("Post not found with id: " + id);
         }
         postRepository.deleteById(id);
+    }
+
+    private static PostResponseDTO getPostResponseDTO(Post postsaved) {
+        return new PostResponseDTO(
+                postsaved.getId(),
+                postsaved.getTitle(),
+                postsaved.getContent(),
+                postsaved.getAuthor(),
+                postsaved.getCategory().getName()
+        );
     }
 }

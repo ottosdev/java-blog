@@ -5,7 +5,7 @@ Accept: application/json
 ###
 
 ### GET id
-GET http://localhost:8080/post/b80c1214-62d7-4d50-a7ed-969cfefd6a02
+GET http://localhost:8080/post/6abe1019-b7c1-4464-bec8-7fc7cea6356f
 Accept: application/json
 
 ###
@@ -24,7 +24,7 @@ Content-Type: application/json
 ###
 
 ### PUT`
-PUT http://localhost:8080/post/2a8dfc77-1957-45d0-9c80-a67bd36c977c
+PUT http://localhost:8080/post/6abe1019-b7c1-4464-bec8-7fc7cea6356f
 Content-Type: application/json
 
 {

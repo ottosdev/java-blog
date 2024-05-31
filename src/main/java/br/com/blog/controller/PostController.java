@@ -2,7 +2,6 @@ package br.com.blog.controller;
 
 import br.com.blog.dto.post.PostDTO;
 import br.com.blog.dto.post.PostResponseDTO;
-import br.com.blog.exceptions.CustomException;
 import br.com.blog.model.Post;
 import br.com.blog.services.PostService;
 import jakarta.validation.Valid;
@@ -24,8 +23,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> save(@RequestBody @Valid PostDTO dto) {
-        Post post = postService.save(dto);
+    public ResponseEntity<PostResponseDTO> save(@RequestBody @Valid PostDTO dto) {
+        PostResponseDTO post = postService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
 
@@ -36,14 +35,14 @@ public class PostController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Post> getPost(@PathVariable String id) {
-        Optional<Post> getPost = postService.findById(id);
-        return ResponseEntity.ok(getPost.get());
+    public ResponseEntity<Optional<PostResponseDTO>> getPost(@PathVariable String id) {
+        Optional<PostResponseDTO> getPost = postService.findById(id);
+        return ResponseEntity.ok(getPost);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Post> update(@PathVariable String id, @RequestBody PostDTO dto) {
-        Post post = postService.update(id, dto);
+    public ResponseEntity<PostResponseDTO> update(@PathVariable String id, @RequestBody PostDTO dto) {
+        PostResponseDTO post = postService.update(id, dto);
         return ResponseEntity.ok(post);
     }
 

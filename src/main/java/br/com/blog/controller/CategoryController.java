@@ -2,7 +2,6 @@ package br.com.blog.controller;
 
 import br.com.blog.dto.category.CategoryDTO;
 import br.com.blog.dto.category.CategoryResponseDTO;
-import br.com.blog.exceptions.CustomException;
 import br.com.blog.model.Category;
 import br.com.blog.services.CategoryServices;
 import jakarta.validation.Valid;
@@ -10,9 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/category")
@@ -29,9 +26,9 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createCategory(@RequestBody @Valid CategoryDTO dto) {
+    public ResponseEntity<CategoryResponseDTO> createCategory(@RequestBody @Valid CategoryDTO dto) {
             Category category = categoryService.save(dto);
-            CategoryDTO categoryDTO = new CategoryDTO(category.getId(), category.getName());
+            CategoryResponseDTO categoryDTO = new CategoryResponseDTO(category.getId(), category.getName());
             return ResponseEntity.status(HttpStatus.CREATED).body(categoryDTO);
     }
 
